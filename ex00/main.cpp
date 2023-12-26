@@ -1,6 +1,15 @@
 #include "BitcoinExchange.hpp"
 
-char *bad_val(float value)
+int check_val(float value)
+{
+    if (value < 0)
+        return -1;
+    else if (value > 1000)
+        return -2;
+    return 1;
+}
+
+std::string bad_val(float value)
 {
     if (value < 0)
         return "Error: not a positive number.\n";
@@ -47,11 +56,6 @@ std::multimap<std::string, float> check_fill_map(int ac, char *av)
     {
         std::string date = iline.substr(0, 10);
         float value = get_value(iline);
-        if (bad_val(value))
-        {
-            m.insert(std::pair<std::string, float>(bad_val(value), 0));
-            continue;
-        }
         m.insert(std::pair<std::string, float>(date, value));
     }
     InputFile.close();
@@ -65,6 +69,18 @@ int main(int ac, char **av)
     std::multimap<std::string, float>::iterator it = m.begin();
     while (it != m.end())
     {
+        if(check_val(it->second) == -1)
+        {
+            std::cout << "Error: not a positive number.\n";
+            it++;
+            continue;
+        }
+        else if(check_val(it->second) == -2)
+        {
+            std::cout << "Error: too large a number.\n";
+            it++;
+            continue;
+        }
         std::cout << it->first << ": " << it->second << std::endl;
         it++;
     }

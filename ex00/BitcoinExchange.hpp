@@ -6,6 +6,7 @@
 #include <string>
 #include <map>
 #include <algorithm>
+#include <cstring>
 
 class BitcoinExchange
 {
