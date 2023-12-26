@@ -1,15 +1,12 @@
 #include "BitcoinExchange.hpp"
 
-void check_val(float value)
+char *bad_val(float value)
 {
     if (value < 0)
-    {
-        std::cout << "Error: not a positive number.\n";
-    }
+        return "Error: not a positive number.\n";
     else if (value > 1000)
-    {
-        std::cout << "Error: too large a number.\n";
-    }
+        return "Error: too large a number.\n";
+    return 0;
 }
 
 float get_value(std::string &iline)
@@ -36,51 +33,40 @@ float get_data_value(std::string &dline)
     return value;
 }
 
-int main(int ac, char **av)
+std::multimap<std::string, float> check_fill_map(int ac, char *av)
 {
-    if (ac != 2)
+    std::ifstream InputFile(av);
+    if(!InputFile.is_open() || ac != 2)
     {
         std::cerr << "Error: could not open file.\n";
-        return 0;
-    }
-    std::ifstream InputFile(av[1]);
-    std::ifstream data("data.csv");
-    if(!InputFile.is_open() || !data.is_open())
-    {
-        std::cerr << "Error: could not open file.\n";
-        return 0;
     }
     std::string iline;
-    std::string dline;
-    getline(InputFile, iline); // to skip the first line of av[1] file;
-    if (iline != "date | value")
-        std::cerr << "Error: bad input => " << iline << std::endl;
-    std::map<std::string, float> data_m;
-    std::map<std::string, float>::iterator found;
+    std::multimap<std::string, float> m;
+    getline(InputFile, iline); //skip the first line "date | value";
     while(getline(InputFile, iline))
     {
         std::string date = iline.substr(0, 10);
         float value = get_value(iline);
-        check_val(value);
-        std::map<std::string, float> m;
+        if (bad_val(value))
+        {
+            m.insert(std::pair<std::string, float>(bad_val(value), 0));
+            continue;
+        }
         m.insert(std::pair<std::string, float>(date, value));
-
-        // getline(data, dline); // to skip the first line of dataBase;
-        // std::string data_date = dline.substr(0, 10);
-        // float data_value = get_data_value(dline);
-        // data_m.insert(std::pair<std::string, float>(data_date, data_value));
-        // found = data_m.find(iBeg->first);
-        // if(iBeg->first == "2009-02-01")
-        // {
-        //     std::cout << "the value found is: " << found->first << std::endl;
-        //     return 0;
-        // }
-        // else
-        // {
-        //     std::cout << "value not found.\n";
-        // }
     }
     InputFile.close();
-    data.close();
+    return m;
+}
+
+int main(int ac, char **av)
+{
+    std::multimap<std::string, float> m;
+    m = check_fill_map(ac, av[1]);
+    std::multimap<std::string, float>::iterator it = m.begin();
+    while (it != m.end())
+    {
+        std::cout << it->first << ": " << it->second << std::endl;
+        it++;
+    }
     return 0;
 }
