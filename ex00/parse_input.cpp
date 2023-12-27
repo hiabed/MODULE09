@@ -38,6 +38,28 @@ int check_date(std::string &iDate)
     return 1;
 }
 
+int no_value(std::string &iline)
+{
+    int i = 0;
+    while(iline[i] && iline[i] != '|')
+        i++;
+    if(iline[i] && iline[i] == '|')
+        i++;
+    while(iline[i] == ' ')
+        i++;
+    if (!iline[i])
+    {
+        std::cerr << "Error: there is no value.\n";
+        return 1;
+    }
+    else if (iline[i] == '|')
+    {
+        std::cerr << "Error: bad format => " << iline << std::endl;
+        return 1;
+    }
+    return 0;
+}
+
 float get_value(std::string &iline)
 {
     int i = 0;

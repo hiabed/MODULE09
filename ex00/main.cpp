@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-map check_fill_map()
+map fill_map()
 {
     std::ifstream DataFile("data.csv");
     if (!DataFile.is_open())
@@ -40,6 +40,8 @@ void find_date(map m, std::string iLine)
         return ;
     else if (!check_date(iDate))
         return ;
+    else if (no_value(iLine))
+        return ;
     if (it != m.end())
         std::cout << iDate << " => " << iValue << " = " << (it->second * iValue) << std::endl;
 }
@@ -51,8 +53,13 @@ int main(int ac, char **av)
         std::cerr << "Error: could not open file.\n";
         exit(EXIT_FAILURE);
     }
-    map m = check_fill_map();
+    map m = fill_map();
     std::fstream InputFile(av[1]);
+    if(!InputFile.is_open())
+    {
+        std::cerr << "Error: could not open file.\n";
+        exit(EXIT_FAILURE);
+    }
     std::string iLine;
     getline(InputFile, iLine);
     while (getline(InputFile, iLine))
