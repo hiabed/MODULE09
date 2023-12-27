@@ -31,12 +31,31 @@ void print_keyVal(map m)
     }
 }
 
+void find_date(map m, std::string iLine)
+{
+    std::string iDate = iLine.substr(0, 10);
+    float iValue = get_value(iLine);
+    map::iterator it = m.lower_bound(iDate);
+    if (!check_val(iValue))
+        return ;
+    if (it != m.end())
+        std::cout << iDate << " => " << iValue << " = " << it->second * iValue << std::endl;
+}
+
 int main(int ac, char **av)
 {
-    (void)ac;
-    (void)av;
-    map m;
-    m = check_fill_map();
-    print_keyVal(m);
+    if (ac != 2)
+    {
+        std::cerr << "Error: could not open file.\n";
+        exit(EXIT_FAILURE);
+    }
+    map m = check_fill_map();
+    std::fstream InputFile(av[1]);
+    std::string iLine;
+    getline(InputFile, iLine);
+    while (getline(InputFile, iLine))
+    {
+        find_date(m, iLine);
+    }
     return 0;
 }

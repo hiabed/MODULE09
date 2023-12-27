@@ -3,9 +3,15 @@
 int check_val(float value)
 {
     if (value < 0)
-        return -1;
+    {
+        std::cerr << "Error: not a positive number.\n";
+        return 0;
+    }
     else if (value > 1000)
-        return -2;
+    {
+        std::cerr << "Error: too large a number.\n";
+        return 0;
+    }
     return 1;
 }
 
