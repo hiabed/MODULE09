@@ -73,6 +73,19 @@ float get_value(std::string &iline)
     return value;
 }
 
+int check_date_format(std::string &iline)
+{
+    int i = 0;
+    while(iline[i] && iline[i] != ' ')
+        i++;
+    if (i != 10)
+    {
+        std::cout << "Error: bad format => Year-Month-Day (xxxx-xx-xx)\n";
+        return 0;
+    }
+    return 1;
+}
+
 float get_data_value(std::string &dline)
 {
     int i = 0;

@@ -38,6 +38,8 @@ void find_date(map m, std::string iLine)
     map::iterator it = m.lower_bound(iDate);
     if (!check_val(iValue))
         return ;
+    else if (!check_date_format(iLine))
+        return ;
     else if (!check_date(iDate))
         return ;
     else if (no_value(iLine))

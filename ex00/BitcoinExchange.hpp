@@ -12,6 +12,7 @@ float get_value(std::string &iline);
 float get_data_value(std::string &dline);
 int check_date(std::string &iDate);
 int no_value(std::string &iline);
+int check_date_format(std::string &iline);
 
 typedef std::map<std::string, float> map;
 
