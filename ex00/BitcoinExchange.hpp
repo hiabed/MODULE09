@@ -11,6 +11,7 @@
 int check_val(float value);
 float get_value(std::string &iline);
 float get_data_value(std::string &dline);
+int check_date(std::string &iDate);
 
 typedef std::map<std::string, float> map;
 
