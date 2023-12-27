@@ -8,6 +8,12 @@
 #include <algorithm>
 #include <cstring>
 
+int check_val(float value);
+float get_value(std::string &iline);
+float get_data_value(std::string &dline);
+
+typedef std::map<std::string, float> map;
+
 class BitcoinExchange
 {
 private:
