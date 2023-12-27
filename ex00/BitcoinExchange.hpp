@@ -6,7 +6,6 @@
 #include <string>
 #include <map>
 #include <algorithm>
-#include <cstring>
 
 int check_val(float value);
 float get_value(std::string &iline);
