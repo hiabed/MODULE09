@@ -80,7 +80,7 @@ int check_value(std::string &iline)
     }
     if (!iline[i] && dots < 2)
         return 1;
-    std::cout << "Error: not valid value.\n";
+    std::cerr << "Error: not valid value.\n";
     return 0;
 }
 
@@ -112,7 +112,7 @@ int check_line_format(std::string &iline)
         i++;
     if (!iline[i])
         return 1;
-    std::cout << "Error: bad format => \"date | value\"\n";
+    std::cerr << "Error: bad format => \"date | value\"\n";
     return 0;
 }
 
@@ -136,7 +136,7 @@ int check_date_format(std::string &iline)
         i++;
     if (i != 10 || iline[4] != '-' || iline[7] != '-')
     {
-        std::cout << "Error: bad format => Year-Month-Day (xxxx-xx-xx)\n";
+        std::cerr << "Error: bad format => Year-Month-Day (xxxx-xx-xx)\n";
         return 0;
     }
     return 1;
