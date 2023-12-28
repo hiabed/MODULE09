@@ -33,16 +33,14 @@ void print_keyVal(map m)
 
 void find_date(map m, std::string iLine)
 {
+    if (!check_line(iLine))
+        return ;
     std::string iDate = iLine.substr(0, 10);
     float iValue = get_value(iLine);
     map::iterator it = m.lower_bound(iDate);
     if (!check_val(iValue))
         return ;
-    else if (!check_date_format(iLine))
-        return ;
     else if (!check_date(iDate))
-        return ;
-    else if (no_value(iLine))
         return ;
     if (it != m.end())
         std::cout << iDate << " => " << iValue << " = " << (it->second * iValue) << std::endl;

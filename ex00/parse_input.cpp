@@ -60,6 +60,30 @@ int no_value(std::string &iline)
     return 0;
 }
 
+int check_value(std::string &iline)
+{
+    int i = 0;
+    int dots = 0;
+    while(iline[i] && iline[i] != '|')
+        i++;
+    if(iline[i])
+        i++;
+    while(iline[i] && iline[i] == ' ')
+        i++;
+    if (iline[i] && (iline[i] == '-' || iline[i] == '+'))
+        i++;
+    while (iline[i] && (isdigit(iline[i]) || iline[i] == '.'))
+    {
+        if (iline[i] == '.')
+            dots++;
+        i++;
+    }
+    if (!iline[i] && dots < 2)
+        return 1;
+    std::cout << "Error: not valid value.\n";
+    return 0;
+}
+
 float get_value(std::string &iline)
 {
     int i = 0;
@@ -67,10 +91,42 @@ float get_value(std::string &iline)
         i++;
     if(iline[i])
         i++;
-    while(iline[i] == ' ')
+    while(iline[i] && iline[i] == ' ')
         i++;
-    float value = atof(&iline[i]);
+    float value = 0;
+    if(iline[i])
+        value = atof(&iline[i]);
+    while (iline[i] && isdigit(iline[i]))
+        i++;
     return value;
+}
+
+int check_line_format(std::string &iline)
+{
+    int i = 0;
+    while(iline[i] && iline[i] != '|')
+        i++;
+    if(iline[i])
+        i++;
+    while(iline[i] && iline[i] != '|')
+        i++;
+    if (!iline[i])
+        return 1;
+    std::cout << "Error: bad format => \"date | value\"\n";
+    return 0;
+}
+
+int check_line(std::string &iline)
+{
+    if (!check_date_format(iline))
+        return 0;
+    else if (!check_line_format(iline))
+        return 0;
+    else if (no_value(iline))
+        return 0;
+    else if (!check_value(iline))
+        return 0;
+    return 1;
 }
 
 int check_date_format(std::string &iline)
@@ -78,7 +134,7 @@ int check_date_format(std::string &iline)
     int i = 0;
     while(iline[i] && iline[i] != ' ')
         i++;
-    if (i != 10)
+    if (i != 10 || iline[4] != '-' || iline[7] != '-')
     {
         std::cout << "Error: bad format => Year-Month-Day (xxxx-xx-xx)\n";
         return 0;
