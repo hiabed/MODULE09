@@ -122,8 +122,6 @@ int check_line(std::string &iline)
         return 0;
     else if (!check_line_format(iline))
         return 0;
-    else if (no_value(iline))
-        return 0;
     else if (!check_value(iline))
         return 0;
     return 1;
