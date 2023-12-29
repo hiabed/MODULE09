@@ -37,10 +37,12 @@ void find_date(map m, std::string iLine)
         return ;
     std::string iDate = iLine.substr(0, 10);
     float iValue = get_value(iLine);
-    map::iterator it = m.lower_bound(iDate);
-    if (!check_val(iValue))
+    if (!check_date(iDate))
         return ;
-    else if (!check_date(iDate))
+    map::iterator it = m.find(iDate);
+    if (it == m.end())
+       it = --m.lower_bound(iDate);
+    if (!check_val(iValue))
         return ;
     if (it != m.end())
         std::cout << iDate << " => " << iValue << " = " << (it->second * iValue) << std::endl;

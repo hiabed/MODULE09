@@ -30,7 +30,7 @@ int check_date(std::string &iDate)
         return 0;
     }
     int day = stoi(iDate.substr(8, 2));
-    if (day > 31 || day < 1)
+    if ((year == 2009 && day == 1) || day > 31 || day < 1)
     {
         std::cerr << "Error: bad input => " << iDate << std::endl;
         return 0;
