@@ -15,6 +15,19 @@ int check_val(float value)
     return 1;
 }
 
+int days_monthCheck(int year, int month, int day)
+{
+    if ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) && day > 31)
+        return 0;
+    else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+        return 0;
+    else if (month == 2 && !(year % 4) && day > 29)
+        return 0;
+    else if (month == 2 && (year % 4) && day > 28)
+        return 0;
+    return 1;
+}
+
 int check_date(std::string &iDate)
 {
     int year = stoi(iDate.substr(0, 4));
@@ -30,7 +43,7 @@ int check_date(std::string &iDate)
         return 0;
     }
     int day = stoi(iDate.substr(8, 2));
-    if ((year == 2009 && day == 1) || day > 31 || day < 1)
+    if ((year == 2009 && day == 1) || day < 1 || !days_monthCheck(year, month, day))
     {
         std::cerr << "Error: bad input => " << iDate << std::endl;
         return 0;
