@@ -99,7 +99,10 @@ int main(int ac, char **av)
         b++;
     }
     if (my_vec.size() % 2)
-        largest.push_back(*(my_vec.end() - 1));
+    {
+        it = lower_bound(largest.begin(), largest.end(), *(my_vec.end() - 1));
+        largest.insert(it, *(my_vec.end() - 1));
+    }
     std::cout << "After: ";
     print_container(largest);
     return 0;
