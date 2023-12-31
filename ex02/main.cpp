@@ -74,13 +74,14 @@ int main(int ac, char **av)
     if (!check_args(ac, av))
         return 0;
     std::vector <int> my_vec = fill_container<std::vector<int> >(av);
-    std::vector <std::pair<int, int> > vec = fill_pairs_container<std::vector<std::pair<int, int> > > (av);
     std::cout << "before: ";
     print_container(my_vec);
+
+    std::vector <std::pair<int, int> > vec = fill_pairs_container<std::vector<std::pair<int, int> > > (av);
     // sort two elements of each pair of a container;
     for (size_t i = 0; i < vec.size(); i++)
         sort_two(vec.at(i).first, vec.at(i).second);
-    // print_pairs_container(vec);
+
     std::vector <int> largest;
     for (size_t i = 0; i < vec.size(); i++)
         largest.push_back(vec.at(i).second);
