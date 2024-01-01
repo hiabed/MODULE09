@@ -13,17 +13,20 @@ void sort_two(int &a, int &b)
 
 int check_args(int ac, char **av)
 {
-    if (ac < 2)
+    if (ac < 3)
     {
         std::cerr << "Error\n";
         return (0);
     }
-    for (int i = 0; av[i]; i++)
+    for (int i = 1; av[i]; i++)
     {
-        if(atoi(av[i]) < 0)
+        for(int j = 0; av[i][j]; j++)
         {
-            std::cerr << "Error\n";
-            return (0);
+            if (!isdigit(av[i][j]))
+            {
+                std::cerr << "Error\n";
+                return (0);
+            }
         }
     }
     return (1);
