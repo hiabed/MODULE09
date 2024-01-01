@@ -54,7 +54,7 @@ void print_pairs_container(Container &C)
 
 template<typename Container, typename Pair>
 
-void sort(int ac, char **av, std::string container)
+void sort_container(int ac, char **av, std::string container)
 {
     struct timeval start;
     struct timeval end;

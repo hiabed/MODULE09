@@ -37,7 +37,7 @@ int main(int ac, char **av)
 {
     if (!check_args(ac, av))
         return 0;
-    sort<std::vector <int>, std::vector <std::pair<int, int> > >(ac, av, "std::vector");
-    sort<std::deque <int>, std::deque <std::pair<int, int> > >(ac, av, "std::deque");
+    sort_container<std::vector <int>, std::vector <std::pair<int, int> > >(ac, av, "std::vector");
+    sort_container<std::deque <int>, std::deque <std::pair<int, int> > >(ac, av, "std::deque");
     return 0;
 }
