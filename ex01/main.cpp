@@ -11,7 +11,7 @@ int parse_input(char *av1)
 {
     for (int i = 0; av1[i]; i++)
     {
-        if (av1[i] != '+' && av1[i] != '-' && av1[i] != '*' && av1[i] != '/' && av1[i] != ' ' && !isdigit(av1[i]))
+        if (av1[i] != '+' && av1[i] != '-' && av1[i] != '*' && av1[i] != '/' && av1[i] != ' ' && av1[i] != '\t' && !isdigit(av1[i]))
             return 0;
     }
     return 1;
