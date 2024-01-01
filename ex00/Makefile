@@ -2,7 +2,7 @@ NAME = btc
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g3
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 CXXFILES = main.cpp BitcoinExchange.cpp parse_input.cpp \
 
