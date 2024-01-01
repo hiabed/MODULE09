@@ -59,21 +59,21 @@ void sort(int ac, char **av, std::string container)
     struct timeval start;
     struct timeval end;
     gettimeofday(&start, NULL);
-    Container my_vec = fill_container<Container >(av);
+    Container my_con = fill_container<Container >(av);
     if (container == "std::vector")
-        print_container(my_vec, true);
-    Pair vec = fill_pairs_container<Pair > (av);
+        print_container(my_con, true);
+    Pair con = fill_pairs_container<Pair > (av);
     // sort two elements of each pair of a container;
-    for (size_t i = 0; i < vec.size(); i++)
-        sort_two(vec.at(i).first, vec.at(i).second);
+    for (size_t i = 0; i < con.size(); i++)
+        sort_two(con.at(i).first, con.at(i).second);
 
     Container largest;
-    for (size_t i = 0; i < vec.size(); i++)
-        largest.push_back(vec.at(i).second);
+    for (size_t i = 0; i < con.size(); i++)
+        largest.push_back(con.at(i).second);
 
     Container smallest;
-    for (size_t i = 0; i < vec.size(); i++)
-        smallest.push_back(vec.at(i).first);
+    for (size_t i = 0; i < con.size(); i++)
+        smallest.push_back(con.at(i).first);
 
     sort(largest.begin(), largest.end());
 
@@ -85,10 +85,10 @@ void sort(int ac, char **av, std::string container)
         largest.insert(it, *b);
         b++;
     }
-    if (my_vec.size() % 2)
+    if (my_con.size() % 2)
     {
-        it = lower_bound(largest.begin(), largest.end(), *(my_vec.end() - 1));
-        largest.insert(it, *(my_vec.end() - 1));
+        it = lower_bound(largest.begin(), largest.end(), *(my_con.end() - 1));
+        largest.insert(it, *(my_con.end() - 1));
     }
     if (container == "std::vector")
         print_container(largest, false);
