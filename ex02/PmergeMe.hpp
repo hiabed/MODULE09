@@ -22,8 +22,12 @@ Container fill_container(char **av)
 
 template <typename Container>
 
-void print_container(Container &C)
+void print_container(Container &C, bool beg)
 {
+    if (beg)
+        std::cout << "Before: ";
+    else
+        std::cout << "After:  ";
     for (size_t i = 0; i < C.size() ; i++)
         std::cout << C.at(i) << " ";
     std::cout << std::endl;
@@ -34,7 +38,6 @@ template <typename Container>
 Container fill_pairs_container(char **av)
 {
     Container C;
-    // fill container;
     for (int i = 1; av[i] && av[i + 1]; i += 2)
         C.push_back(std::make_pair(atoi(av[i]), atoi(av[i + 1])));
     return C;
@@ -58,10 +61,7 @@ void sort(int ac, char **av, std::string container)
     gettimeofday(&start, NULL);
     Container my_vec = fill_container<Container >(av);
     if (container == "std::vector")
-    {
-        std::cout << "before: ";
-        print_container(my_vec);
-    }
+        print_container(my_vec, true);
     Pair vec = fill_pairs_container<Pair > (av);
     // sort two elements of each pair of a container;
     for (size_t i = 0; i < vec.size(); i++)
@@ -91,10 +91,7 @@ void sort(int ac, char **av, std::string container)
         largest.insert(it, *(my_vec.end() - 1));
     }
     if (container == "std::vector")
-    {
-        std::cout << "After:  ";
-        print_container(largest);
-    }
+        print_container(largest, false);
     gettimeofday(&end, NULL);
     if (container == "std::vector")
         std::cout << "Time to process a range of    " << ac - 1 << " elements with " << container << " : "<< (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec) << " us" << '\n';

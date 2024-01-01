@@ -1,5 +1,16 @@
 #include "PmergeMe.hpp"
 
+void sort_two(int &a, int &b)
+{
+    int temp;
+    if (a > b)
+    {
+        temp = a;
+        a = b;
+        b = temp;
+    }
+}
+
 int check_args(int ac, char **av)
 {
     if (ac < 2)
@@ -16,17 +27,6 @@ int check_args(int ac, char **av)
         }
     }
     return (1);
-}
-
-void sort_two(int &a, int &b)
-{
-    int temp;
-    if (a > b)
-    {
-        temp = a;
-        a = b;
-        b = temp;
-    }
 }
 
 int main(int ac, char **av)
